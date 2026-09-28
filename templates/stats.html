@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Statistics · \boxed{}{% endblock %}
+{% block content %}
+<h1>Statistics</h1>
+<p class="muted">Each model is an object, each arrow a morphism labelled with how well it lands on its target:
+the score of the model on a problem set, or its correct samples on a single problem.
+Node bars show a model's overall score, or a set's / problem's difficulty.</p>
+<div id="view-tabs" class="view-tabs"></div>
+<div class="diagram-layout">
+  <div>
+    <div id="diagram-scroll" class="diagram-scroll"><div id="diagram" class="diagram"></div></div>
+    <div class="legend">
+      <span>score / pass rate 0<span class="grad"></span>1</span>
+      <span><span class="swatch" style="border-color:var(--muted)"></span>solved at least once</span>
+      <span><span class="swatch" style="border-top-style:dashed;border-color:var(--muted)"></span>never solved</span>
+    </div>
+  </div>
+  <div id="info" class="panel"></div>
+</div>
+<script type="application/json" id="diagram-data">{{ diagram|tojson }}</script>
+{% endblock %}
+{% block scripts %}<script defer src="{{ url_for('static', filename='diagram.js') }}"></script>{% endblock %}

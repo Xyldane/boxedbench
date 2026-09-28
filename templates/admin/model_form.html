@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit model' if model_id else 'New model' }} · Admin{% endblock %}
+{% block content %}
+<p class="small"><a href="{{ url_for('admin') }}">← Admin</a></p>
+<h1>{{ 'Edit model' if model_id else 'New model' }}</h1>
+<form method="post" class="panel" style="max-width:720px">
+  <input type="hidden" name="csrf" value="{{ csrf_token }}">
+  <label>Name</label><input type="text" name="name" value="{{ m.name if m }}" required placeholder="Qwen2.5-Math-1.5B-Instruct">
+  <div class="form-grid">
+    <div><label>Parameters</label><input type="text" name="params" value="{{ m.params if m }}" placeholder="1.5B"></div>
+    <div><label>Family</label><input type="text" name="family" value="{{ m.family if m }}" placeholder="Qwen"></div>
+  </div>
+  <label>Notes (quantization, temperature, prompt, …)</label><textarea name="notes">{{ m.notes if m }}</textarea>
+  <div class="row between" style="margin-top:16px">
+    <button class="btn primary" type="submit">Save</button>
+    {% if model_id %}<button class="btn danger" type="submit" name="action" value="delete" formnovalidate onclick="return confirm('Delete this model and all its results?')">Delete</button>{% endif %}
+  </div>
+</form>
+{% endblock %}

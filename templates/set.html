@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% from "_macros.html" import cell %}
+{% block title %}{{ st.title }} · \boxed{}{% endblock %}
+{% block content %}
+{% set ss = stats.set[st.id] %}
+<p class="small"><a href="{{ url_for('index') }}">← Problem sets</a></p>
+<div class="row" style="align-items:baseline">
+  <h1>{{ st.title }}</h1>
+  <span class="tag {{ st.subject }}">{{ st.subject }}</span>
+  {% if is_admin %}<a class="btn small" href="{{ url_for('admin_set', set_id=st.id) }}">Edit</a>{% endif %}
+</div>
+{% if st.description %}<div class="rich muted" style="margin-bottom:14px">{{ st.description }}</div>{% endif %}
+<div class="stats-strip tex-auto">
+  <div><b>{{ problems|length }}</b>problems ($N$)</div>
+  <div><b>{{ ss.evaluated_by }}</b>models run</div>
+  <div><b>{{ ss.mean_score|pct }}</b>mean score</div>
+  <div><b>{{ ss.difficulty|num }}</b>difficulty</div>
+</div>
+
+<h2>Results</h2>
+{% if models %}
+<div class="table-wrap">
+<table>
+  <thead class="tex-auto"><tr>
+    <th class="rank">#</th><th>Model</th><th class="num">Score</th><th class="num">Solved</th><th class="num">$n$</th>
+    {% for p in problems %}<th class="num"><a href="{{ url_for('problem_page', problem_id=p.id) }}">P{{ loop.index }}</a></th>{% endfor %}
+  </tr></thead>
+  <tbody>
+  {% for m in models %}
+    {% set r = stats.model_set[(m.id, st.id)] %}
+    <tr>
+      <td class="rank">{{ loop.index }}</td>
+      <td>{{ m.name }} {% if m.params %}<span class="muted small">{{ m.params }}</span>{% endif %}</td>
+      <td class="num">{{ cell(r.score / 100, r.score|pct) }}</td>
+      <td class="num">{{ r.solved }} / {{ r.N }}</td>
+      <td class="num muted">{{ r.n }}</td>
+      {% for p in problems %}
+        {% set pm = stats.problem[p.id].per_model.get(m.id) %}
+        <td class="num">{% if pm %}{{ cell(pm.c / pm.k, pm.c ~ '/' ~ pm.k) }}{% else %}{{ cell(none, '') }}{% endif %}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="small muted tex-auto" style="margin-top:8px">Score $=100c/(nN)$. Solved = problems answered correctly at least once in $n$ samples.</p>
+{% else %}
+<div class="panel muted">No model has been run on this set yet.</div>
+{% endif %}
+
+<h2>Problems</h2>
+<div style="display:grid;gap:12px">
+{% for p in problems %}
+  {% set ps = stats.problem[p.id] %}
+  <a class="card" href="{{ url_for('problem_page', problem_id=p.id) }}">
+    <div class="card-head">
+      <h3><span class="plabel">P{{ loop.index }}</span>{{ p.title }}</h3>
+      <span class="small muted">difficulty {{ ps.difficulty|num }} · solved by {{ ps.solved_by }}/{{ ps.evaluated_by }}</span>
+    </div>
+    <div class="rich clamp">{{ p.statement }}</div>
+  </a>
+{% else %}
+  <div class="panel muted">No problems in this set yet.</div>
+{% endfor %}
+</div>
+{% endblock %}

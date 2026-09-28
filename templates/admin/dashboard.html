@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Admin · \boxed{}{% endblock %}
+{% block content %}
+<div class="row between">
+  <h1>Admin</h1>
+  <div class="row">
+    <a class="btn primary" href="{{ url_for('admin_results') }}">Enter results</a>
+    <a class="btn" href="{{ url_for('admin_import') }}">Import JSON</a>
+    <a class="btn" href="{{ url_for('admin_export') }}">Export problems</a>
+  </div>
+</div>
+
+<div class="row between" style="margin-top:18px"><h2 style="margin:0">Problem sets</h2><a class="btn small" href="{{ url_for('admin_set') }}">+ New set</a></div>
+<div class="table-wrap" style="margin-top:10px">
+<table>
+  <thead><tr><th>Pos</th><th>Title</th><th>Subject</th><th class="num">Problems</th><th class="num">Models run</th><th></th></tr></thead>
+  <tbody>
+  {% for st in sets %}
+    <tr>
+      <td class="muted">{{ st.position }}</td>
+      <td><a href="{{ url_for('admin_set', set_id=st.id) }}">{{ st.title }}</a></td>
+      <td><span class="tag {{ st.subject }}">{{ st.subject }}</span></td>
+      <td class="num">{{ st.n_problems }}</td>
+      <td class="num">{{ stats.set[st.id].evaluated_by }}</td>
+      <td class="num"><a class="small" href="{{ url_for('admin_problem', set_id=st.id) }}">+ problem</a> · <a class="small" href="{{ url_for('set_page', set_id=st.id) }}">view</a></td>
+    </tr>
+  {% else %}
+    <tr><td colspan="6" class="muted">No sets yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<div class="row between" style="margin-top:28px"><h2 style="margin:0">Models</h2><a class="btn small" href="{{ url_for('admin_model') }}">+ New model</a></div>
+<div class="table-wrap" style="margin-top:10px">
+<table>
+  <thead><tr><th>Name</th><th>Params</th><th>Family</th><th class="num">Overall</th><th class="num">Sets run</th><th></th></tr></thead>
+  <tbody>
+  {% for m in models %}
+    <tr>
+      <td><a href="{{ url_for('admin_model', model_id=m.id) }}">{{ m.name }}</a></td>
+      <td class="muted">{{ m.params or '–' }}</td>
+      <td class="muted">{{ m.family or '–' }}</td>
+      <td class="num">{{ stats.model[m.id].overall|pct }}</td>
+      <td class="num">{{ stats.model[m.id].sets_run }} / {{ sets|length }}</td>
+      <td class="num"><a class="small" href="{{ url_for('admin_results', model_id=m.id) }}">results</a></td>
+    </tr>
+  {% else %}
+    <tr><td colspan="6" class="muted">No models yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

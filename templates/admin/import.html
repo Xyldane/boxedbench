@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Import · Admin{% endblock %}
+{% block content %}
+<p class="small"><a href="{{ url_for('admin') }}">← Admin</a></p>
+<h1>Import results (JSON)</h1>
+<div class="form-grid">
+  <form method="post" enctype="multipart/form-data" class="panel">
+    <input type="hidden" name="csrf" value="{{ csrf_token }}">
+    <label>Upload a file</label><input type="file" name="file" accept=".json,application/json">
+    <label>…or paste JSON</label>
+    <textarea name="json" style="min-height:320px">{{ text }}</textarea>
+    <p style="margin-top:14px"><button class="btn primary" type="submit">Import</button></p>
+  </form>
+  <div class="panel small">
+    <h3>Format</h3>
+    <p class="muted">One object (or a list of them) per model. The model is created if it does not exist.
+      Samples listed for a problem <b>replace</b> that model's existing samples for it.</p>
+    <pre>{{ example }}</pre>
+    <ul class="muted">
+      <li>No <code>answer</code>? It is taken from the last <code>\boxed{…}</code> in <code>raw_output</code>.</li>
+      <li>No <code>correct</code>? The answer is compared with the reference (whitespace / <code>\left</code> / <code>\dfrac</code> normalized, numbers compared numerically). Fix mistakes afterwards in <a href="{{ url_for('admin_results') }}">Enter results</a>.</li>
+      <li>A sample can also be a plain string, meaning its raw output.</li>
+      <li>Problem ids are in <a href="{{ url_for('admin_export') }}">Export problems</a>. <code>scripts/run_benchmark.py</code> produces this format from any OpenAI-compatible server (Ollama, llama.cpp, vLLM, LM Studio).</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

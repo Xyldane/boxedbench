@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row between">
+  <div>
+    <h1>Problem sets</h1>
+    <p class="muted tex-auto">Hand-made problems, mostly math. Each model is sampled $n$ times per problem; a set with $N$ problems and $c$ correct samples scores $\frac{100c}{nN}\%$.</p>
+  </div>
+</div>
+<div class="stats-strip">
+  <div><b>{{ sets|length }}</b>sets</div>
+  <div><b>{{ n_problems }}</b>problems</div>
+  <div><b>{{ n_models }}</b>models</div>
+</div>
+
+{% if not sets %}
+  <div class="panel muted">No problem sets yet. {% if is_admin %}<a href="{{ url_for('admin_set') }}">Create one</a>.{% else %}Log in to the admin area to add some.{% endif %}</div>
+{% endif %}
+
+<div class="grid">
+{% for st in sets %}
+  {% set s = stats.set[st.id] %}
+  <a class="card" href="{{ url_for('set_page', set_id=st.id) }}">
+    <div class="card-head">
+      <h3>{{ st.title }}</h3>
+      <span class="tag {{ st.subject }}">{{ st.subject }}</span>
+    </div>
+    {% for p in previews.get(st.id, []) %}
+      <div class="preview"><div class="rich clamp">{{ p.statement }}</div></div>
+    {% else %}
+      <div class="muted small">No problems yet.</div>
+    {% endfor %}
+    <div class="card-foot">
+      <span><b>{{ st.n_problems }}</b> problem{{ 's' if st.n_problems != 1 }}</span>
+      <span>mean <b>{{ s.mean_score|pct }}</b></span>
+      <span>difficulty <b>{{ s.difficulty|num }}</b></span>
+      {% if s.best %}<span>best <b>{{ s.best[1] }}</b> {{ s.best[0]|pct }}</span>{% endif %}
+    </div>
+  </a>
+{% endfor %}
+</div>
+{% endblock %}

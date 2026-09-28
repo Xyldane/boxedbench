@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Results · Admin{% endblock %}
+{% block content %}
+<p class="small"><a href="{{ url_for('admin') }}">← Admin</a></p>
+<h1>Enter results</h1>
+<form method="get" class="panel row tex-auto" style="align-items:end">
+  <div style="flex:1;min-width:200px"><label>Model</label>
+    <select name="model_id">{% for mm in models %}<option value="{{ mm.id }}" {{ 'selected' if m and m.id == mm.id }}>{{ mm.name }}</option>{% endfor %}</select></div>
+  <div style="flex:1;min-width:200px"><label>Problem set</label>
+    <select name="set_id">{% for s in sets %}<option value="{{ s.id }}" {{ 'selected' if st and st.id == s.id }}>{{ s.title }}</option>{% endfor %}</select></div>
+  <div style="width:110px"><label>Samples $n$</label><input type="number" name="n" min="1" max="64" value="{{ n or 4 }}"></div>
+  <button class="btn" type="submit">Open</button>
+</form>
+{% if not models %}<p class="muted" style="margin-top:12px">Add a model first: <a href="{{ url_for('admin_model') }}">new model</a>.</p>{% endif %}
+
+{% if m and st %}
+<form method="post" style="margin-top:18px">
+  <input type="hidden" name="csrf" value="{{ csrf_token }}">
+  <input type="hidden" name="model_id" value="{{ m.id }}">
+  <input type="hidden" name="set_id" value="{{ st.id }}">
+  <input type="hidden" name="n" value="{{ n }}">
+  <div class="panel">
+    <div class="row between">
+      <h2 style="margin:0">{{ m.name }} → {{ st.title }}</h2>
+      <span class="muted small">Empty trailing rows are not stored. Tick = correct.</span>
+    </div>
+    {% for p in problems %}
+    <div class="results-problem">
+      <div class="row between" style="align-items:baseline">
+        <h3 style="margin:0"><span class="plabel">P{{ loop.index }}</span>{{ p.title }}</h3>
+        <span class="small muted">reference <span class="bx" data-answer="{{ p.answer }}" data-ok="1"></span></span>
+      </div>
+      <div class="rich clamp small muted" style="margin:6px 0 8px">{{ p.statement }}</div>
+      {% for s in grid[p.id][:n] %}
+        {% set i = loop.index0 %}
+        <div class="sample-line">
+          <span class="muted small">#{{ i + 1 }}</span>
+          <input type="text" name="a-{{ p.id }}-{{ i }}" value="{{ s.answer }}" data-boxed="bx-{{ p.id }}-{{ i }}" style="font-family:var(--mono)">
+          <input type="checkbox" name="c-{{ p.id }}-{{ i }}" value="1" {{ 'checked' if s.correct }} data-boxed-ok="bx-{{ p.id }}-{{ i }}">
+          <span id="bx-{{ p.id }}-{{ i }}" class="bx" data-answer="{{ s.answer }}" data-ok="{{ 1 if s.correct else 0 }}"></span>
+        </div>
+      {% endfor %}
+    </div>
+    {% else %}
+      <p class="muted">This set has no problems.</p>
+    {% endfor %}
+    <div class="row" style="margin-top:14px">
+      <button class="btn primary" type="submit" name="action" value="save">Save results</button>
+      <button class="btn" type="submit" name="action" value="automark" title="Tick every answer that matches the reference (normalized); does not save">Auto-mark vs. reference</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+{% endblock %}
+{% block scripts %}<script defer src="{{ url_for('static', filename='admin.js') }}"></script>{% endblock %}

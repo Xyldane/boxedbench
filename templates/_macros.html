@@ -1,0 +1,5 @@
+{% macro cell(rate, text) -%}
+  {%- if rate is none -%}<span class="cell muted">–</span>
+  {%- else -%}<span class="cell" style="background:hsla({{ (rate * 150)|round|int }},60%,50%,.22)">{{ text }}</span>
+  {%- endif -%}
+{%- endmacro %}

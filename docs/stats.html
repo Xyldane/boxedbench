@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Statistics · \boxed{}</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a1428'/%3E%3Crect x='7' y='7' width='18' height='18' fill='none' stroke='%23dbe5f7' stroke-width='2.2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="static/style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="static/boxed.js"></script>
+  
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <a class="logo" href="./">\boxed<span class="brace">{}</span></a>
+      <nav>
+        
+        <a href="./" class="">Problem sets</a>
+        <a href="leaderboard" class="">Leaderboard</a>
+        <a href="stats" class="on">Statistics</a>
+      </nav>
+      <div class="spacer"></div>
+      
+    </div>
+  </header>
+  <main>
+    
+      
+    
+    
+<h1>Statistics</h1>
+<p class="muted">Each model is an object, each arrow a morphism labelled with how well it lands on its target:
+the score of the model on a problem set, or its correct samples on a single problem.
+Node bars show a model's overall score, or a set's / problem's difficulty.</p>
+<div id="view-tabs" class="view-tabs"></div>
+<div class="diagram-layout">
+  <div>
+    <div id="diagram-scroll" class="diagram-scroll"><div id="diagram" class="diagram"></div></div>
+    <div class="legend">
+      <span>score / pass rate 0<span class="grad"></span>1</span>
+      <span><span class="swatch" style="border-color:var(--muted)"></span>solved at least once</span>
+      <span><span class="swatch" style="border-top-style:dashed;border-color:var(--muted)"></span>never solved</span>
+    </div>
+  </div>
+  <div id="info" class="panel"></div>
+</div>
+<script type="application/json" id="diagram-data">[{"edges": [{"dashed": false, "info": [["Score", "100\u00b72/(2\u00b72) = 50.0%"], ["Solved", "1 / 2"], ["Samples per problem", 2]], "label": "50.0\\%", "s": 0, "t": 0, "title": "GLM-5.3-Flash(max) \u2192 The Monolith", "value": 0.5}, {"dashed": true, "info": [["Score", "100\u00b70/(2\u00b72) = 0.0%"], ["Solved", "0 / 2"], ["Samples per problem", 2]], "label": "0.0\\%", "s": 1, "t": 0, "title": "mimo-v2.6-flash \u2192 The Monolith", "value": 0.0}, {"dashed": false, "info": [["Score", "100\u00b71/(2\u00b72) = 25.0%"], ["Solved", "1 / 2"], ["Samples per problem", 2]], "label": "25.0\\%", "s": 2, "t": 0, "title": "mimo-v2.6-pro \u2192 The Monolith", "value": 0.25}, {"dashed": true, "info": [["Score", "100\u00b70/(2\u00b71) = 0.0%"], ["Solved", "0 / 1"], ["Samples per problem", 2]], "label": "0.0\\%", "s": 0, "t": 1, "title": "GLM-5.3-Flash(max) \u2192 Vector Visions", "value": 0.0}, {"dashed": true, "info": [["Score", "100\u00b70/(2\u00b71) = 0.0%"], ["Solved", "0 / 1"], ["Samples per problem", 2]], "label": "0.0\\%", "s": 1, "t": 1, "title": "mimo-v2.6-flash \u2192 Vector Visions", "value": 0.0}, {"dashed": true, "info": [["Score", "100\u00b70/(2\u00b71) = 0.0%"], ["Solved", "0 / 1"], ["Samples per problem", 2]], "label": "0.0\\%", "s": 2, "t": 1, "title": "mimo-v2.6-pro \u2192 Vector Visions", "value": 0.0}], "key": "overview", "name": "Models \u2192 Problem sets", "sources": [{"id": 4, "info": [["Parameters", "321B"], ["Family", "Zai-org"], ["Overall score", "25.0%"], ["Problems solved", "1 / 3"], ["Correct samples", "2 / 6"], ["Sets run", "2 / 2"]], "label": "GLM-5.3-Flash(max)", "sub": "321B \u00b7 25.0%", "value": 0.25}, {"id": 3, "info": [["Parameters", "309B"], ["Family", "Xiaomi"], ["Overall score", "0.0%"], ["Problems solved", "0 / 3"], ["Correct samples", "0 / 6"], ["Sets run", "2 / 2"]], "label": "mimo-v2.6-flash", "sub": "309B \u00b7 0.0%", "value": 0.0}, {"id": 5, "info": [["Parameters", "1T"], ["Family", "Xiaomi"], ["Overall score", "12.5%"], ["Problems solved", "1 / 3"], ["Correct samples", "1 / 6"], ["Sets run", "2 / 2"]], "label": "mimo-v2.6-pro", "sub": "1T \u00b7 12.5%", "value": 0.125}], "targets": [{"id": 1, "info": [["Subject", "math"], ["Problems", 2], ["Difficulty", "0.75  (1 \u2212 mean score)"], ["Mean score", "25.0%"], ["Best", "GLM-5.3-Flash(max) \u00b7 50.0%"], ["Models run", 3]], "label": "The Monolith", "sub": "math \u00b7 N=2 \u00b7 diff 0.75", "url": "set/1", "value": 0.75}, {"id": 2, "info": [["Subject", "physics"], ["Problems", 1], ["Difficulty", "1.00  (1 \u2212 mean score)"], ["Mean score", "0.0%"], ["Best", "mimo-v2.6-pro \u00b7 0.0%"], ["Models run", 3]], "label": "Vector Visions", "sub": "physics \u00b7 N=1 \u00b7 diff 1.00", "url": "set/2", "value": 1.0}]}, {"edges": [{"dashed": false, "info": [["Correct", "2 / 2 samples"], ["Pass rate", "100.0%"]], "label": "2/2", "s": 0, "t": 0, "title": "GLM-5.3-Flash(max) \u2192 P1", "value": 1.0}, {"dashed": true, "info": [["Correct", "0 / 2 samples"], ["Pass rate", "0.0%"]], "label": "0/2", "s": 1, "t": 0, "title": "mimo-v2.6-flash \u2192 P1", "value": 0.0}, {"dashed": false, "info": [["Correct", "1 / 2 samples"], ["Pass rate", "50.0%"]], "label": "1/2", "s": 2, "t": 0, "title": "mimo-v2.6-pro \u2192 P1", "value": 0.5}, {"dashed": true, "info": [["Correct", "0 / 2 samples"], ["Pass rate", "0.0%"]], "label": "0/2", "s": 0, "t": 1, "title": "GLM-5.3-Flash(max) \u2192 P2", "value": 0.0}, {"dashed": true, "info": [["Correct", "0 / 2 samples"], ["Pass rate", "0.0%"]], "label": "0/2", "s": 1, "t": 1, "title": "mimo-v2.6-flash \u2192 P2", "value": 0.0}, {"dashed": true, "info": [["Correct", "0 / 2 samples"], ["Pass rate", "0.0%"]], "label": "0/2", "s": 2, "t": 1, "title": "mimo-v2.6-pro \u2192 P2", "value": 0.0}], "key": "set-1", "name": "Models \u2192 The Monolith", "sources": [{"id": 4, "info": [["Parameters", "321B"], ["Family", "Zai-org"], ["Overall score", "25.0%"], ["Problems solved", "1 / 3"], ["Correct samples", "2 / 6"], ["Sets run", "2 / 2"]], "label": "GLM-5.3-Flash(max)", "sub": "321B \u00b7 25.0%", "value": 0.25}, {"id": 3, "info": [["Parameters", "309B"], ["Family", "Xiaomi"], ["Overall score", "0.0%"], ["Problems solved", "0 / 3"], ["Correct samples", "0 / 6"], ["Sets run", "2 / 2"]], "label": "mimo-v2.6-flash", "sub": "309B \u00b7 0.0%", "value": 0.0}, {"id": 5, "info": [["Parameters", "1T"], ["Family", "Xiaomi"], ["Overall score", "12.5%"], ["Problems solved", "1 / 3"], ["Correct samples", "1 / 6"], ["Sets run", "2 / 2"]], "label": "mimo-v2.6-pro", "sub": "1T \u00b7 12.5%", "value": 0.125}], "targets": [{"id": 1, "info": [["Difficulty", "0.50  (1 \u2212 pass rate)"], ["Pass rate", "50.0%"], ["Solved by", "2 / 3 models"]], "label": "P1", "sub": "diff 0.50 \u00b7 solved by 2/3", "url": "problem/1", "value": 0.5}, {"id": 2, "info": [["Difficulty", "1.00  (1 \u2212 pass rate)"], ["Pass rate", "0.0%"], ["Solved by", "0 / 3 models"]], "label": "P2", "sub": "diff 1.00 \u00b7 solved by 0/3", "url": "problem/2", "value": 1.0}]}, {"edges": [{"dashed": true, "info": [["Correct", "0 / 2 samples"], ["Pass rate", "0.0%"]], "label": "0/2", "s": 0, "t": 0, "title": "GLM-5.3-Flash(max) \u2192 P1", "value": 0.0}, {"dashed": true, "info": [["Correct", "0 / 2 samples"], ["Pass rate", "0.0%"]], "label": "0/2", "s": 1, "t": 0, "title": "mimo-v2.6-flash \u2192 P1", "value": 0.0}, {"dashed": true, "info": [["Correct", "0 / 2 samples"], ["Pass rate", "0.0%"]], "label": "0/2", "s": 2, "t": 0, "title": "mimo-v2.6-pro \u2192 P1", "value": 0.0}], "key": "set-2", "name": "Models \u2192 Vector Visions", "sources": [{"id": 4, "info": [["Parameters", "321B"], ["Family", "Zai-org"], ["Overall score", "25.0%"], ["Problems solved", "1 / 3"], ["Correct samples", "2 / 6"], ["Sets run", "2 / 2"]], "label": "GLM-5.3-Flash(max)", "sub": "321B \u00b7 25.0%", "value": 0.25}, {"id": 3, "info": [["Parameters", "309B"], ["Family", "Xiaomi"], ["Overall score", "0.0%"], ["Problems solved", "0 / 3"], ["Correct samples", "0 / 6"], ["Sets run", "2 / 2"]], "label": "mimo-v2.6-flash", "sub": "309B \u00b7 0.0%", "value": 0.0}, {"id": 5, "info": [["Parameters", "1T"], ["Family", "Xiaomi"], ["Overall score", "12.5%"], ["Problems solved", "1 / 3"], ["Correct samples", "1 / 6"], ["Sets run", "2 / 2"]], "label": "mimo-v2.6-pro", "sub": "1T \u00b7 12.5%", "value": 0.125}], "targets": [{"id": 3, "info": [["Difficulty", "1.00  (1 \u2212 pass rate)"], ["Pass rate", "0.0%"], ["Solved by", "0 / 3 models"]], "label": "P1", "sub": "diff 1.00 \u00b7 solved by 0/3", "url": "problem/3", "value": 1.0}]}]</script>
+
+  </main>
+  <footer class="tex-auto">
+    <span class="bx" data-answer="\text{correct}" data-ok="1"></span>
+    &nbsp;&nbsp;
+    <span class="bx" data-answer="\text{wrong}" data-ok="0"></span>
+    &nbsp;&nbsp;·&nbsp; Score $= \tfrac{100\,c}{nN}$ per problem set
+  </footer>
+  <script defer src="static/diagram.js"></script>
+</body>
+</html>

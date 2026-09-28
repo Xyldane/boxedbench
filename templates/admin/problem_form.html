@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit problem' if problem_id else 'New problem' }} · Admin{% endblock %}
+{% block content %}
+<p class="small"><a href="{{ url_for('admin_set', set_id=st.id) }}">← {{ st.title }}</a></p>
+<div class="row between">
+  <h1>{{ 'Edit problem' if problem_id else 'New problem' }}</h1>
+  {% if problem_id %}<a class="btn small" href="{{ url_for('problem_page', problem_id=problem_id) }}">View public page</a>{% endif %}
+</div>
+<form method="post" class="panel">
+  <input type="hidden" name="csrf" value="{{ csrf_token }}">
+  <input type="hidden" name="set_id" value="{{ st.id }}">
+  <div class="form-grid">
+    <div><label>Title (optional)</label><input type="text" name="title" value="{{ p.title if p }}"></div>
+    <div><label>Position (blank = last)</label><input type="number" name="position" value="{{ p.position if p and p.position is not none }}"></div>
+  </div>
+  <div class="form-grid">
+    <div>
+      <label>Statement — text with <code>$inline$</code>, <code>$$display$$</code>, <code>```code```</code></label>
+      <textarea name="statement" data-preview="st-preview" style="min-height:260px" required>{{ p.statement if p }}</textarea>
+    </div>
+    <div><label>Preview</label><div id="st-preview" class="live rich" style="min-height:260px"></div></div>
+  </div>
+  <div class="form-grid">
+    <div>
+      <label>Reference answer (LaTeX, without <code>\boxed{}</code>)</label>
+      <input type="text" name="answer" value="{{ p.answer if p }}" data-boxed="ans-preview" required style="font-family:var(--mono)">
+    </div>
+    <div><label>Preview</label><div class="live"><span id="ans-preview" class="bx" data-ok="1"></span></div></div>
+  </div>
+  <label>Notes / solution (private-ish: shown on the problem page)</label>
+  <textarea name="notes">{{ p.notes if p }}</textarea>
+  <div class="row between" style="margin-top:16px">
+    <div class="row">
+      <button class="btn primary" type="submit" name="action" value="save">Save</button>
+      <button class="btn" type="submit" name="action" value="save_new">Save &amp; add another</button>
+    </div>
+    {% if problem_id %}<button class="btn danger" type="submit" name="action" value="delete" formnovalidate onclick="return confirm('Delete this problem and its results?')">Delete</button>{% endif %}
+  </div>
+</form>
+{% endblock %}
+{% block scripts %}<script defer src="{{ url_for('static', filename='admin.js') }}"></script>{% endblock %}

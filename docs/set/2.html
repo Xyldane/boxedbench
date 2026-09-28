@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vector Visions · \boxed{}</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a1428'/%3E%3Crect x='7' y='7' width='18' height='18' fill='none' stroke='%23dbe5f7' stroke-width='2.2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../static/style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../static/boxed.js"></script>
+  
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <a class="logo" href="../">\boxed<span class="brace">{}</span></a>
+      <nav>
+        
+        <a href="../" class="on">Problem sets</a>
+        <a href="../leaderboard" class="">Leaderboard</a>
+        <a href="../stats" class="">Statistics</a>
+      </nav>
+      <div class="spacer"></div>
+      
+    </div>
+  </header>
+  <main>
+    
+      
+    
+    
+
+<p class="small"><a href="../">← Problem sets</a></p>
+<div class="row" style="align-items:baseline">
+  <h1>Vector Visions</h1>
+  <span class="tag physics">physics</span>
+  
+</div>
+<div class="rich muted" style="margin-bottom:14px">Visual physics reasoning </div>
+<div class="stats-strip tex-auto">
+  <div><b>1</b>problems ($N$)</div>
+  <div><b>3</b>models run</div>
+  <div><b>0.0%</b>mean score</div>
+  <div><b>1.00</b>difficulty</div>
+</div>
+
+<h2>Results</h2>
+
+<div class="table-wrap">
+<table>
+  <thead class="tex-auto"><tr>
+    <th class="rank">#</th><th>Model</th><th class="num">Score</th><th class="num">Solved</th><th class="num">$n$</th>
+    <th class="num"><a href="../problem/3">P1</a></th>
+  </tr></thead>
+  <tbody>
+  
+    
+    <tr>
+      <td class="rank">1</td>
+      <td>GLM-5.3-Flash(max) <span class="muted small">321B</span></td>
+      <td class="num"><span class="cell" style="background:hsla(0,60%,50%,.22)">0.0%</span></td>
+      <td class="num">0 / 1</td>
+      <td class="num muted">2</td>
+      
+        
+        <td class="num"><span class="cell" style="background:hsla(0,60%,50%,.22)">0/2</span></td>
+      
+    </tr>
+  
+    
+    <tr>
+      <td class="rank">2</td>
+      <td>mimo-v2.6-flash <span class="muted small">309B</span></td>
+      <td class="num"><span class="cell" style="background:hsla(0,60%,50%,.22)">0.0%</span></td>
+      <td class="num">0 / 1</td>
+      <td class="num muted">2</td>
+      
+        
+        <td class="num"><span class="cell" style="background:hsla(0,60%,50%,.22)">0/2</span></td>
+      
+    </tr>
+  
+    
+    <tr>
+      <td class="rank">3</td>
+      <td>mimo-v2.6-pro <span class="muted small">1T</span></td>
+      <td class="num"><span class="cell" style="background:hsla(0,60%,50%,.22)">0.0%</span></td>
+      <td class="num">0 / 1</td>
+      <td class="num muted">2</td>
+      
+        
+        <td class="num"><span class="cell" style="background:hsla(0,60%,50%,.22)">0/2</span></td>
+      
+    </tr>
+  
+  </tbody>
+</table>
+</div>
+<p class="small muted tex-auto" style="margin-top:8px">Score $=100c/(nN)$. Solved = problems answered correctly at least once in $n$ samples.</p>
+
+
+<h2>Problems</h2>
+<div style="display:grid;gap:12px">
+
+  
+  <a class="card" href="../problem/3">
+    <div class="card-head">
+      <h3><span class="plabel">P1</span></h3>
+      <span class="small muted">difficulty 1.00 · solved by 0/3</span>
+    </div>
+    <div class="rich clamp">There is a uniform magnetic field directed perpendicular to the plane of Fig. 1. Its magnitude is $B=kv$ where $k$ is a positive constant.
+
+Particle A has charge $+q$, particle $B$ has charge $-q$, and both particles have mass $m$. The charges are sufficiently small that the electrostatic force between the particles is negligible compared to the magnetic force exerted by the external field. The particles are launched simultaneously from the positions shown in Figs. 1 and 2, with the indicated initial velocities. All collisions between the particles are perfectly elastic.
+
+It is known that when $v=1$, particle $B$ passes through the point $(-\ell,0)$ in Fig. 1 while moving in the negative $y$-direction.
+
+Find all values of $v&gt;0$ for which particle $B$ passes through $(-\ell,0)$ while moving in the negative $y$-direction.
+
+Tikz code of the image:
+```tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+
+\begin{tikzpicture}[
+    scale=1,
+    &gt;=Stealth,
+    line cap=round,
+    line join=round
+]
+
+% Axes
+\draw[-&gt;,thick] (-3.5,0) -- (4,0)
+    node[right] {$x$};
+
+\draw[-&gt;,thick] (0,-3) -- (0,3.4)
+    node[above] {$y$};
+
+% Origin
+\fill (0,0) circle (1.5pt);
+
+% Points
+\coordinate (A) at (0,2);
+\coordinate (B) at (0,-2);
+\coordinate (C) at (-2.5,0);
+
+% Particles A and B
+\fill (A) circle (2.4pt);
+\fill (B) circle (2.4pt);
+
+% Point on negative x-axis
+\fill (C) circle (2.4pt);
+
+% Labels
+\node at (0.35,2.05) {$A$};
+\node at (0.35,-2.05) {$B$};
+
+% Velocity arrows
+\draw[-&gt;,very thick,cyan!60!green!80!black]
+    (0,2) -- (-1.45,2);
+
+\node[cyan!60!green!80!black]
+    at (-0.75,2.35) {$v$};
+
+\draw[-&gt;,very thick,cyan!60!green!80!black]
+    (0,-2) -- (-1.45,-2);
+
+\node[cyan!60!green!80!black]
+    at (-0.75,-1.65) {$v$};
+
+% Distance labels
+\node at (0.30,1) {$\ell$};
+\node at (0.30,-1) {$\ell$};
+\node at (-1.25,-0.30) {$\ell$};
+
+% Figure label
+\node at (0,-3.55) {Fig.\ 1};
+
+\end{tikzpicture}
+
+\end{document}
+```
+```tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+
+\begin{tikzpicture}[
+    scale=1,
+    &gt;=Stealth,
+    line cap=round,
+    line join=round
+]
+
+% Axes
+\draw[-&gt;,thick] (-2.6,0) -- (3.6,0)
+    node[right] {$x$};
+
+\draw[-&gt;,thick] (0,-3) -- (0,3.4)
+    node[above] {$z$};
+
+% Origin
+\fill (0,0) circle (1.5pt);
+
+% Particle positions
+\coordinate (A) at (0,1.8);
+\coordinate (B) at (0,-1.8);
+
+% Particles
+\fill (A) circle (2.4pt);
+\fill (B) circle (2.4pt);
+
+% Labels
+\node at (-0.35,1.8) {$A$};
+\node at (-0.35,-1.8) {$B$};
+
+% A moving downward
+\draw[-&gt;,very thick,cyan!60!green!80!black]
+    (0,1.55) -- (0,0.55);
+
+\node[cyan!60!green!80!black]
+    at (-0.45,1.05) {$v^2$};
+
+% B moving upward
+\draw[-&gt;,very thick,cyan!60!green!80!black]
+    (0,-1.55) -- (0,-0.55);
+
+\node[cyan!60!green!80!black]
+    at (-0.45,-1.05) {$v^2$};
+
+% Distance annotations
+\draw[&lt;-&gt;,thin]
+    (0.35,0.05) -- (0.35,1.75);
+
+\node at (1.25,0.9)
+    {$8.5\pi\ell$};
+
+\draw[&lt;-&gt;,thin]
+    (0.35,-0.05) -- (0.35,-1.75);
+
+\node at (1.25,-0.9)
+    {$8.5\pi\ell$};
+
+% Figure label
+\node at (0,-3.55) {Fig.\ 2};
+
+\end{tikzpicture}
+
+\end{document}
+```</div>
+  </a>
+
+</div>
+
+  </main>
+  <footer class="tex-auto">
+    <span class="bx" data-answer="\text{correct}" data-ok="1"></span>
+    &nbsp;&nbsp;
+    <span class="bx" data-answer="\text{wrong}" data-ok="0"></span>
+    &nbsp;&nbsp;·&nbsp; Score $= \tfrac{100\,c}{nN}$ per problem set
+  </footer>
+  
+</body>
+</html>

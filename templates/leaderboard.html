@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from "_macros.html" import cell %}
+{% block title %}Leaderboard · \boxed{}{% endblock %}
+{% block content %}
+<h1>Leaderboard</h1>
+<p class="muted tex-auto">Scores are computed per problem set as $100c/(nN)$. <em>Overall</em> is the mean of a model's set scores over the sets it was run on; <em>Solved</em> counts problems answered correctly at least once.</p>
+{% if models %}
+<div class="table-wrap">
+<table>
+  <thead><tr>
+    <th class="rank">#</th><th>Model</th><th>Params</th><th class="num">Overall</th><th class="num">Solved</th><th class="num">Sets</th>
+    {% for st in sets %}<th class="num"><a href="{{ url_for('set_page', set_id=st.id) }}">{{ st.title }}</a></th>{% endfor %}
+  </tr></thead>
+  <tbody>
+  {% for m in models %}
+    {% set s = stats.model[m.id] %}
+    <tr>
+      <td class="rank">{{ loop.index }}</td>
+      <td>{{ m.name }}{% if m.family %} <span class="muted small">{{ m.family }}</span>{% endif %}</td>
+      <td class="muted">{{ m.params or '–' }}</td>
+      <td class="num">{{ cell(s.overall / 100 if s.overall is not none else none, s.overall|pct) }}</td>
+      <td class="num">{{ s.solved }} / {{ s.attempted }}</td>
+      <td class="num muted">{{ s.sets_run }} / {{ sets|length }}</td>
+      {% for st in sets %}
+        {% set r = stats.model_set.get((m.id, st.id)) %}
+        <td class="num">{% if r %}<span title="c={{ r.c }}, n={{ r.n }}, N={{ r.N }} · solved {{ r.solved }}/{{ r.N }}">{{ cell(r.score / 100, r.score|pct) }}</span>{% else %}{{ cell(none, '') }}{% endif %}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="panel muted">No models yet.</div>
+{% endif %}
+{% endblock %}

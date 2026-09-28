@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}P{{ idx + 1 }} · {{ st.title }} · \boxed{}{% endblock %}
+{% block content %}
+<p class="small"><a href="{{ url_for('set_page', set_id=st.id) }}">← {{ st.title }}</a></p>
+<div class="row" style="align-items:baseline">
+  <h1><span class="plabel" style="font-size:1rem">P{{ idx + 1 }}</span>{{ p.title or ('Problem ' ~ (idx + 1)) }}</h1>
+  <span class="tag {{ st.subject }}">{{ st.subject }}</span>
+  {% if is_admin %}<a class="btn small" href="{{ url_for('admin_problem', problem_id=p.id) }}">Edit</a>{% endif %}
+</div>
+
+<div class="problem-layout">
+  <div class="panel problem-body"><div class="rich">{{ p.statement }}</div></div>
+  <div class="panel">
+    <dl class="kv">
+      <dt>Difficulty</dt><dd>{{ pstats.difficulty|num }}</dd>
+      <dt>Pass rate</dt><dd>{{ (pstats.pass_rate * 100 if pstats.pass_rate is not none else none)|pct }}</dd>
+      <dt>Solved by</dt><dd>{{ pstats.solved_by }} / {{ pstats.evaluated_by }} models</dd>
+    </dl>
+    <div style="margin-top:14px" class="small muted">Reference answer</div>
+    <div class="answer-reveal" title="Click to toggle">
+      <span class="hide-note">click to reveal</span>
+      <span class="bx" data-answer="{{ p.answer }}" data-ok="1"></span>
+    </div>
+  </div>
+</div>
+
+{% if p.notes %}
+<h2>Notes</h2>
+<div class="panel"><div class="rich">{{ p.notes }}</div></div>
+{% endif %}
+
+<h2>Model answers</h2>
+{% if rows %}
+<div class="panel">
+  {% for m, samples in rows %}
+    {% set c = samples|selectattr('correct')|list|length %}
+    <div class="model-row">
+      <div>
+        <div>{{ m.name }}</div>
+        <div class="small muted">{{ m.params }}{{ ' · ' if m.params }}{{ c }}/{{ samples|length }} correct</div>
+      </div>
+      <div>
+        <div class="samples">
+          {% for s in samples %}<span class="bx" data-answer="{{ s.answer }}" data-ok="{{ s.correct }}" title="sample {{ s.sample_index + 1 }}"></span>{% endfor %}
+        </div>
+        {% set raws = samples|selectattr('raw_output')|list %}
+        {% if raws %}
+        <details class="raw"><summary>raw outputs ({{ raws|length }})</summary>
+          {% for s in raws %}<p class="small muted" style="margin:8px 0 2px">sample {{ s.sample_index + 1 }}</p><pre>{{ s.raw_output }}</pre>{% endfor %}
+        </details>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="panel muted">No results for this problem yet.</div>
+{% endif %}
+
+<div class="pager">
+  <span>{% if prev %}<a href="{{ url_for('problem_page', problem_id=prev.id) }}">← P{{ idx }}</a>{% endif %}</span>
+  <span>{% if next %}<a href="{{ url_for('problem_page', problem_id=next.id) }}">P{{ idx + 2 }} →</a>{% endif %}</span>
+</div>
+{% endblock %}
